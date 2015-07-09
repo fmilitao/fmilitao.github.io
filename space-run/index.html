@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Space Run</title>
+  <style>
+  @font-face {
+    font-family: testFont;
+    src: url('font/PressStart2P.ttf');
+  }
+  body {
+    background: #222222;
+    margin: 0;
+    padding: 0;
+  }
+  canvas {
+    border-style: solid;
+    border-color: gray;
+    border-width: 2px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  </style>
+  <script src="bin/code.js"></script>
+  <script src="bin/main.js"></script>
+</head>
+<body>
+  <canvas id="canvas">Error?</canvas>
+  <!-- trick browser to load font early -->
+  <span id="dummy" style="opacity: 0; font-family: testFont">
+    Please load my font.
+  </span>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title>OK Times</title>
+	
+	<style>
+		body { margin: 0; font-family: monospace; }
+		/* canvas { width: 100%; height: 100%; } */
+		.wp1 { position: absolute; width: 100%; }
+		.wp2 { text-align: center; }
+		
+		#hud { 
+			position: absolute;
+			bottom: 0; 
+			font-size: 12pt;
+			padding: 5px 5px;
+			color: black;
+			font-family: "Helvetica"; }
+		#hud div { display: inline-block; }
+		#mode { font-weight: bolder; }
+		#score { font-weight: lighter; }
+		#add { font-weight: lighter; color: green; }
+		#points { right: 0; bottom: 0; position: absolute; 
+		font-size: 12pt;
+			padding: 5px 5px;
+			color: rgba(0,0,0,0.5);
+			font-family: "Helvetica"; 
+			font-weight: lighter;}
+
+			#question { display: inline-block; text-shadow: 4px 4px 12px #777777; }
+			#answer { display: inline-block; color: rgba(0,0,0,0); }
+			#attempt { display: inline-block; white-space: pre; text-shadow: 4px 4px 12px #777777; }
+		</style>
+		<script type="text/javascript" src="main.js"></script>
+	</head>
+	<body>
+
+		<div id="hud">
+			<div id="mode"></div>
+			<div id="score"></div>
+			<div id="add"></div>
+		</div>
+		<div id="points"></div>
+
+		<div class="wp1">
+			<div class="wp2"> 
+				<div id="question"></div>
+			</div>
+		</div>
+
+		<div class="wp1">
+			<div class="wp2"> 
+				<div id="answer"></div>
+			</div>
+		</div>
+
+		<div class="wp1">
+			<div class="wp2"> 
+				<div id="attempt"></div>
+			</div>
+		</div>
+
+	</body>
+	</html>
+

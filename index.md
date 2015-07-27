@@ -1,7 +1,11 @@
+<!---
+This was for using github's jekyll automatically:
 ---
 title: Remember Mister Sprinkles
 layout: post
 ---
+now I am using atom's markdown preview so as to include some css.
+--->
 
 #Notes on stuff...#
 

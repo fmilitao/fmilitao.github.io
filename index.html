@@ -366,21 +366,29 @@ This was for using github's jekyll automatically:
 title: Remember Mister Sprinkles
 layout: post
 ---
-now I am using atom's markdown preview.
+now I am using atom's markdown preview so as to include some css.
 --->
 <h1 id="notes-on-stuff-">Notes on stuff...</h1>
 <h2 id="show-current-time-on-terminal-prompt">Show current time on terminal prompt</h2>
-<p>On <code>.bash_profile</code> (for mac terminal):</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span>export&nbsp;PS1=&quot;\t$&nbsp;&quot;</span></span></span></div></pre><h2 id="latex-mk-alias">Latex-mk alias</h2>
-<p>The <code>-silent</code> option may not be sane since errors do not cause abort.</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span>alias&nbsp;latexmk-pdf=&#39;latexmk&nbsp;-pdf&nbsp;-pvc&nbsp;-silent&#39;</span></span></span></div></pre><p>And create <code>~/.latexmkrc</code> on home dir (for use with <a href="http://skim-app.sourceforge.net/">Skim</a>):</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span>$pdf_previewer&nbsp;=&nbsp;&quot;open&nbsp;-a&nbsp;/Applications/Skim.app&quot;;&nbsp;$clean_ext&nbsp;=&nbsp;&quot;paux&nbsp;lox&nbsp;pdfsync&nbsp;out&quot;;</span></span></span></div></pre><p><a href="http://jon.smajda.com/2008/03/08/latexmk/">Source</a></p>
+<p>Add line to <code>.bash_profile</code> (for mac terminals):</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span class="storage modifier shell"><span>export</span></span><span>&nbsp;PS1=</span><span class="string quoted double shell"><span class="punctuation definition string begin shell"><span>&quot;</span></span><span>\t$&nbsp;</span><span class="punctuation definition string end shell"><span>&quot;</span></span></span></span></div></pre>
+<h2 id="latex-mk-alias">Latex-mk alias</h2>
+<p>Add line to <code>.bash_profile</code>:</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span class="support function builtin shell"><span>alias</span></span><span>&nbsp;latexmk-pdf=</span><span class="string quoted single shell"><span class="punctuation definition string begin shell"><span>&#39;</span></span><span>latexmk&nbsp;-pdf&nbsp;-pvc&nbsp;-silent</span><span class="punctuation definition string end shell"><span>&#39;</span></span></span></span></div></pre>
+<p>The <code>-silent</code> option may not be sane since errors do not cause abort.
+And create <code>~/.latexmkrc</code> on home dir (for use with <a href="http://skim-app.sourceforge.net/">Skim</a>):</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span class="variable other normal shell"><span class="punctuation definition variable shell"><span>$</span></span><span>pdf_previewer</span></span><span>&nbsp;=&nbsp;</span><span class="string quoted double shell"><span class="punctuation definition string begin shell"><span>&quot;</span></span><span>open&nbsp;-a&nbsp;/Applications/Skim.app</span><span class="punctuation definition string end shell"><span>&quot;</span></span></span><span class="keyword operator list shell"><span>;</span></span><span>&nbsp;</span><span class="variable other normal shell"><span class="punctuation definition variable shell"><span>$</span></span><span>clean_ext</span></span><span>&nbsp;=&nbsp;</span><span class="string quoted double shell"><span class="punctuation definition string begin shell"><span>&quot;</span></span><span>paux&nbsp;lox&nbsp;pdfsync&nbsp;out</span><span class="punctuation definition string end shell"><span>&quot;</span></span></span><span class="keyword operator list shell"><span>;</span></span></span></div></pre>
+<p>Usage (will watch all files reference by <code>FILE.tex</code>):</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span>latex-pdf&nbsp;FILE.tex</span></span></div></pre>
+<p><a href="http://jon.smajda.com/2008/03/08/latexmk/">Source</a></p>
 <h2 id="gh-pages-branch-update">gh-pages branch update</h2>
 <p>Update &#39;github pages&#39; branch of a project:</p>
-<pre class="editor-colors lang-text"><div class="line"><span class="text plain"><span class="meta paragraph text"><span>git&nbsp;checkout&nbsp;gh-pages</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>git&nbsp;pull&nbsp;origin&nbsp;gh-pages&nbsp;//&nbsp;sometimes&nbsp;I&nbsp;need&nbsp;this...&nbsp;why??</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>git&nbsp;rebase&nbsp;master</span></span></span></div><div class="line"><span class="text plain"><span class="meta paragraph text"><span>git&nbsp;push&nbsp;origin&nbsp;gh-pages</span></span></span></div></pre><p>Then return to work branch...</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span>git&nbsp;checkout&nbsp;gh-pages</span></span></div><div class="line"><span class="source shell"><span>git&nbsp;pull&nbsp;origin&nbsp;gh-pages&nbsp;</span><span class="comment line number-sign shell"><span class="punctuation definition comment shell"><span>#</span></span><span>sometimes&nbsp;I&nbsp;need&nbsp;this...&nbsp;why??</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source shell"><span>git&nbsp;rebase&nbsp;master</span></span></div><div class="line"><span class="source shell"><span>git&nbsp;push&nbsp;origin&nbsp;gh-pages</span></span></div></pre>
+<p>Then return to work branch...</p>
 <p><a href="http://lea.verou.me/2011/10/easily-keep-gh-pages-in-sync-with-master/">Source</a></p>
 <h3 id="misc-">Misc.</h3>
 <ul>
 <li><a href="http://stackoverflow.com/questions/15124547/can-i-use-markdown-file-in-github-page">On using markdown on github pages</a></li>
+<li><a href="http://esprima.org/">Good JS parser?</a></li>
 </ul></body>
 </html>

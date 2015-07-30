@@ -88,7 +88,7 @@
 .markdown-preview dl dd > :first-child, .markdown-preview[data-use-github-style] dl dd > :first-child { margin-top: 0px; }
 .markdown-preview dl dd > :last-child, .markdown-preview[data-use-github-style] dl dd > :last-child { margin-bottom: 0px; }
 .markdown-preview blockquote p, .markdown-preview[data-use-github-style] blockquote p { font-size: 16px; line-height: 1.5; }
-.markdown-preview pre.editor-colors, .markdown-preview[data-use-github-style] pre.editor-colors { padding: 16px; overflow: auto; font-size: 84%; line-height: 1.45; border-radius: 3px; background-color: rgb(29, 31, 33); }
+.markdown-preview pre.editor-colors, .markdown-preview[data-use-github-style] pre.editor-colors { padding: 16px; overflow: auto; font-size: 84%; line-height: 1.45; border-radius: 3px; background-color: rgb(40, 44, 52); }
 .markdown-preview pre.editor-colors, .markdown-preview[data-use-github-style] pre.editor-colors { margin-bottom: 16px; word-break: normal; }
 .markdown-preview code, .markdown-preview[data-use-github-style] code, .markdown-preview tt, .markdown-preview[data-use-github-style] tt, .markdown-preview pre.editor-colors, .markdown-preview[data-use-github-style] pre.editor-colors { font-family: Consolas, 'Liberation Mono', Courier, monospace; }
 .markdown-preview .emoji, .markdown-preview[data-use-github-style] .emoji { height: 20px; width: 20px; }
@@ -114,39 +114,78 @@
 
 pre.editor-colors,
 .host {
-  background-color: #1d1f21;
-  color: #c5c8c6;
+  background-color: #282c34;
+  color: #abb2bf;
 }
-pre.editor-colors .wrap-guide,
-.host .wrap-guide {
-  background-color: #282a2e;
+pre.editor-colors .line.cursor-line,
+.host .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
 }
-pre.editor-colors .indent-guide,
-.host .indent-guide {
-  color: #373b41;
+pre.editor-colors .invisible,
+.host .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor,
+.host .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region,
+.host .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region,
+.host .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+  background-color: #353b45;
 }
 pre.editor-colors .invisible-character,
 .host .invisible-character {
-  color: #373b41;
+  color: rgba(171, 178, 191, 0.15);
 }
-pre.editor-colors .gutter,
-.host .gutter {
-  background-color: #282a2e;
-  border-right: 2px solid #373b41;
-  color: #c5c8c6;
+pre.editor-colors .indent-guide,
+.host .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide,
+.host .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
 }
 pre.editor-colors .gutter .line-number,
 .host .gutter .line-number {
-  padding: 0 0.25em 0 0.5em;
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.git-line-removed:before,
+.host .gutter .line-number.git-line-removed:before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter .line-number.git-line-removed:after,
+.host .gutter .line-number.git-line-removed:after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
 }
 pre.editor-colors .gutter .line-number.cursor-line,
 .host .gutter .line-number.cursor-line {
-  background-color: #373b41;
-  color: #c5c8c6;
+  color: #abb2bf;
+  background-color: #2c313a;
 }
 pre.editor-colors .gutter .line-number.cursor-line-no-selection,
 .host .gutter .line-number.cursor-line-no-selection {
-  color: #c5c8c6;
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right,
+.host .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter .line-number .icon-right,
+.host .gutter .line-number .icon-right {
+  color: #abb2bf;
 }
 pre.editor-colors .gutter .line-number.folded,
 .host .gutter .line-number.folded,
@@ -154,209 +193,272 @@ pre.editor-colors .gutter .line-number:after,
 .host .gutter .line-number:after,
 pre.editor-colors .fold-marker:after,
 .host .fold-marker:after {
-  color: #969896;
-}
-pre.editor-colors .scroll-view,
-.host .scroll-view {
-  padding-left: 10px;
-}
-pre.editor-colors .invisible,
-.host .invisible {
-  color: #c5c8c6;
-}
-pre.editor-colors .cursor,
-.host .cursor {
-  color: #ffffff;
-}
-pre.editor-colors .selection .region,
-.host .selection .region {
-  background-color: #404349;
+  color: #abb2bf;
 }
 .comment {
-  color: #969896;
+  color: #5c6370;
+  font-style: italic;
 }
 .entity.name.type {
-  color: #f0c674;
-  text-decoration: underline;
+  color: #e5c07b;
 }
 .entity.other.inherited-class {
-  color: #b5bd68;
+  color: #98c379;
 }
 .keyword {
-  color: #b294bb;
+  color: #c678dd;
 }
 .keyword.control {
-  color: #b294bb;
+  color: #c678dd;
 }
 .keyword.operator {
-  color: #c5c8c6;
+  color: #abb2bf;
 }
 .keyword.other.special-method {
-  color: #81a2be;
+  color: #61afef;
 }
 .keyword.other.unit {
-  color: #de935f;
+  color: #d19a66;
 }
 .storage {
-  color: #b294bb;
+  color: #c678dd;
+}
+.storage.type.annotation,
+.storage.type.primitive {
+  color: #c678dd;
+}
+.storage.modifier.package,
+.storage.modifier.import {
+  color: #abb2bf;
 }
 .constant {
-  color: #de935f;
+  color: #d19a66;
+}
+.constant.variable {
+  color: #d19a66;
 }
 .constant.character.escape {
-  color: #8abeb7;
+  color: #56b6c2;
 }
 .constant.numeric {
-  color: #de935f;
+  color: #d19a66;
 }
 .constant.other.color {
-  color: #8abeb7;
+  color: #56b6c2;
 }
 .constant.other.symbol {
-  color: #b5bd68;
+  color: #56b6c2;
 }
 .variable {
-  color: #cc6666;
+  color: #e06c75;
 }
 .variable.interpolation {
-  color: #a3685a;
+  color: #be5046;
 }
-.variable.parameter.function {
-  color: #c5c8c6;
+.variable.parameter {
+  color: #abb2bf;
 }
 .invalid.illegal {
-  background-color: #cc6666;
-  color: #1d1f21;
+  background-color: #e06c75;
+  color: #282c34;
 }
 .string {
-  color: #b5bd68;
+  color: #98c379;
 }
 .string.regexp {
-  color: #8abeb7;
+  color: #56b6c2;
 }
 .string.regexp .source.ruby.embedded {
-  color: #ff8000;
+  color: #e5c07b;
 }
 .string.other.link {
-  color: #cc6666;
+  color: #e06c75;
 }
 .punctuation.definition.comment {
-  color: #969896;
+  color: #5c6370;
 }
+.punctuation.definition.method-parameters,
+.punctuation.definition.function-parameters,
 .punctuation.definition.parameters,
+.punctuation.definition.separator,
+.punctuation.definition.seperator,
 .punctuation.definition.array {
-  color: #c5c8c6;
+  color: #abb2bf;
 }
 .punctuation.definition.heading,
 .punctuation.definition.identity {
-  color: #81a2be;
+  color: #61afef;
 }
 .punctuation.definition.bold {
-  color: #f0c674;
+  color: #e5c07b;
   font-weight: bold;
 }
 .punctuation.definition.italic {
-  color: #b294bb;
+  color: #c678dd;
   font-style: italic;
 }
 .punctuation.section.embedded {
-  color: #a3685a;
+  color: #be5046;
+}
+.punctuation.section.method,
+.punctuation.section.class,
+.punctuation.section.inner-class {
+  color: #abb2bf;
 }
 .support.class {
-  color: #f0c674;
+  color: #e5c07b;
+}
+.support.type {
+  color: #56b6c2;
 }
 .support.function {
-  color: #8abeb7;
+  color: #56b6c2;
 }
 .support.function.any-method {
-  color: #81a2be;
+  color: #61afef;
 }
 .entity.name.function {
-  color: #81a2be;
+  color: #61afef;
 }
 .entity.name.class,
 .entity.name.type.class {
-  color: #f0c674;
+  color: #e5c07b;
 }
 .entity.name.section {
-  color: #81a2be;
+  color: #61afef;
 }
 .entity.name.tag {
-  color: #cc6666;
-  text-decoration: underline;
+  color: #e06c75;
 }
 .entity.other.attribute-name {
-  color: #de935f;
+  color: #d19a66;
 }
 .entity.other.attribute-name.id {
-  color: #81a2be;
+  color: #61afef;
 }
 .meta.class {
-  color: #f0c674;
+  color: #e5c07b;
+}
+.meta.class.body {
+  color: #abb2bf;
+}
+.meta.method-call,
+.meta.method {
+  color: #abb2bf;
+}
+.meta.definition.variable {
+  color: #e06c75;
 }
 .meta.link {
-  color: #de935f;
+  color: #d19a66;
 }
 .meta.require {
-  color: #81a2be;
+  color: #61afef;
 }
 .meta.selector {
-  color: #b294bb;
+  color: #c678dd;
 }
 .meta.separator {
   background-color: #373b41;
-  color: #c5c8c6;
+  color: #abb2bf;
 }
 .meta.tag {
-  color: #c5c8c6;
+  color: #abb2bf;
 }
 .none {
-  color: #c5c8c6;
+  color: #abb2bf;
 }
 .markup.bold {
-  color: #de935f;
+  color: #d19a66;
   font-weight: bold;
 }
 .markup.changed {
-  color: #b294bb;
+  color: #c678dd;
 }
 .markup.deleted {
-  color: #cc6666;
+  color: #e06c75;
 }
 .markup.italic {
-  color: #b294bb;
+  color: #c678dd;
   font-style: italic;
 }
 .markup.heading .punctuation.definition.heading {
-  color: #81a2be;
+  color: #61afef;
 }
 .markup.inserted {
-  color: #b5bd68;
+  color: #98c379;
 }
 .markup.list {
-  color: #cc6666;
+  color: #e06c75;
 }
 .markup.quote {
-  color: #de935f;
+  color: #d19a66;
 }
 .markup.raw.inline {
-  color: #b5bd68;
+  color: #98c379;
+}
+.source.cs .keyword.operator {
+  color: #c678dd;
+}
+.source.css .property-name,
+.source.css .property-value {
+  color: #828997;
+}
+.source.css .property-name.support,
+.source.css .property-value.support {
+  color: #abb2bf;
 }
 .source.gfm .markup {
   -webkit-font-smoothing: auto;
 }
 .source.gfm .markup.heading {
-  color: #cc6666;
+  color: #e06c75;
 }
 .source.gfm .markup.link {
-  color: #81a2be;
+  color: #c678dd;
 }
 .source.gfm .link .entity {
-  color: #8abeb7;
+  color: #61afef;
 }
-pre.editor-colors[mini] .scroll-view,
-.host([mini]) .scroll-view {
-  padding-left: 1px;
+.source.ini .keyword.other.definition.ini {
+  color: #e06c75;
+}
+.source.java .storage.modifier.import {
+  color: #e5c07b;
+}
+.source.java .storage.type {
+  color: #e5c07b;
+}
+.source.java-properties .meta.key-pair {
+  color: #e06c75;
+}
+.source.java-properties .meta.key-pair > .punctuation {
+  color: #abb2bf;
+}
+.source.json .meta.structure.dictionary.json > .string.quoted.json {
+  color: #e06c75;
+}
+.source.json .meta.structure.dictionary.json > .string.quoted.json > .punctuation.string {
+  color: #e06c75;
+}
+.source.json .meta.structure.dictionary.json > .value.json > .string.quoted.json,
+.source.json .meta.structure.array.json > .value.json > .string.quoted.json,
+.source.json .meta.structure.dictionary.json > .value.json > .string.quoted.json > .punctuation,
+.source.json .meta.structure.array.json > .value.json > .string.quoted.json > .punctuation {
+  color: #98c379;
+}
+.source.json .meta.structure.dictionary.json > .constant.language.json,
+.source.json .meta.structure.array.json > .constant.language.json {
+  color: #56b6c2;
+}
+.source.ruby .constant.other.symbol > .punctuation {
+  color: inherit;
+}
+.source.python .keyword.operator.logical.python {
+  color: #c678dd;
+}
+.source.python .variable.parameter {
+  color: #d19a66;
 }
 </style>
   </head>
@@ -368,11 +470,21 @@ layout: post
 ---
 now I am using atom's markdown preview so as to include some css.
 --->
-<h1 id="notes-on-stuff-">Notes on stuff...</h1>
-<h2 id="show-current-time-on-terminal-prompt">Show current time on terminal prompt</h2>
+<h2 id="update-local-fork-">Update local fork:</h2>
+<ol>
+<li><p>Ensure <code>upstream</code> points to correct URL (i.e. original owner):</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span>git&nbsp;remote&nbsp;-v&nbsp;</span><span class="comment line number-sign shell"><span class="punctuation definition comment shell"><span>#</span></span><span>lists&nbsp;remotes,&nbsp;if&nbsp;no&nbsp;&#39;upstream&#39;&nbsp;then&nbsp;add&nbsp;manually:</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source shell"><span>git&nbsp;remote&nbsp;add&nbsp;upstream&nbsp;https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git</span></span></div></pre>
+<p><a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/">Source</a></p>
+</li>
+<li><p>Fetch and merge, push to origin:</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span>git&nbsp;fetch&nbsp;upstream</span></span></div><div class="line"><span class="source shell"><span>git&nbsp;checkout&nbsp;master</span></span></div><div class="line"><span class="source shell"><span>git&nbsp;merge&nbsp;upstream/master</span></span></div><div class="line"><span class="source shell"><span>git&nbsp;push&nbsp;origin</span></span></div></pre>
+<p><a href="https://help.github.com/articles/syncing-a-fork/">Source</a></p>
+</li>
+</ol>
+<h2 id="show-current-time-on-terminal-prompt-">Show current time on terminal prompt:</h2>
 <p>Add line to <code>.bash_profile</code> (for mac terminals):</p>
 <pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span class="storage modifier shell"><span>export</span></span><span>&nbsp;PS1=</span><span class="string quoted double shell"><span class="punctuation definition string begin shell"><span>&quot;</span></span><span>\t$&nbsp;</span><span class="punctuation definition string end shell"><span>&quot;</span></span></span></span></div></pre>
-<h2 id="latex-mk-alias">Latex-mk alias</h2>
+<h2 id="latexmk-alias-">Latexmk alias:</h2>
 <p>Add line to <code>.bash_profile</code>:</p>
 <pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span class="support function builtin shell"><span>alias</span></span><span>&nbsp;latexmk-pdf=</span><span class="string quoted single shell"><span class="punctuation definition string begin shell"><span>&#39;</span></span><span>latexmk&nbsp;-pdf&nbsp;-pvc&nbsp;-silent</span><span class="punctuation definition string end shell"><span>&#39;</span></span></span></span></div></pre>
 <p>The <code>-silent</code> option may not be sane since errors do not cause abort.
@@ -381,12 +493,12 @@ And create <code>~/.latexmkrc</code> on home dir (for use with <a href="http://s
 <p>Usage (will watch all files reference by <code>FILE.tex</code>):</p>
 <pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span>latex-pdf&nbsp;FILE.tex</span></span></div></pre>
 <p><a href="http://jon.smajda.com/2008/03/08/latexmk/">Source</a></p>
-<h2 id="gh-pages-branch-update">gh-pages branch update</h2>
-<p>Update &#39;github pages&#39; branch of a project:</p>
+<h2 id="-gh-pages-branch-update-"><code>gh-pages</code> branch update:</h2>
+<p>Update github pages branch of a project:</p>
 <pre class="editor-colors lang-bash"><div class="line"><span class="source shell"><span>git&nbsp;checkout&nbsp;gh-pages</span></span></div><div class="line"><span class="source shell"><span>git&nbsp;pull&nbsp;origin&nbsp;gh-pages&nbsp;</span><span class="comment line number-sign shell"><span class="punctuation definition comment shell"><span>#</span></span><span>sometimes&nbsp;I&nbsp;need&nbsp;this...&nbsp;why??</span><span>&nbsp;</span></span></span></div><div class="line"><span class="source shell"><span>git&nbsp;rebase&nbsp;master</span></span></div><div class="line"><span class="source shell"><span>git&nbsp;push&nbsp;origin&nbsp;gh-pages</span></span></div></pre>
 <p>Then return to work branch...</p>
 <p><a href="http://lea.verou.me/2011/10/easily-keep-gh-pages-in-sync-with-master/">Source</a></p>
-<h3 id="misc-">Misc.</h3>
+<h3 id="misc-stuff-">Misc. stuff:</h3>
 <ul>
 <li><a href="http://stackoverflow.com/questions/15124547/can-i-use-markdown-file-in-github-page">On using markdown on github pages</a></li>
 <li><a href="http://esprima.org/">Good JS parser?</a></li>

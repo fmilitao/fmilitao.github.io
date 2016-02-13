@@ -3,14 +3,19 @@ Stuff I need to write down before I forget how to use...
 
 ## Generate this page
 
-1. For listening to changes (launches local http server, auto-refreshes on FILE changes):
+1. For listening to changes (launches local http server, auto-refreshes on FILE changes, opens browser):
   ```bash
-  grip --wide --title="Notes on stuff" --user-content FILE
+  grip --wide --title="Notes on stuff" --user-content -b FILE
   ```
 
 2. For generating standalone html file:
   ```bash
   grip --wide --title="Notes on stuff" --user-content --export FILE
+  ```
+
+3. To clean up the ugly line on the bottom left:
+  ```bash
+  sed -i .bak  's/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";background-color:#f3f3f3}/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/g' FILE
   ```
 
 [Grip installation](https://github.com/joeyespo/grip)

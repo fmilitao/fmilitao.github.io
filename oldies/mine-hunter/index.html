@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Mine Hunter</title>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+	<script src="processing.js" type="text/javascript"></script>
+	<script src="init.js" type="text/javascript"></script>
+    <script src="game.js" type="text/javascript"></script>
+</head>
+<body>
+<script type="application/processing">
+ship = null;
+mines = null;
+explosions = null;
+hits = 0;
+kills = 0;
+destroyed = 0;
+
+void setup(){
+	size(500, 500);
+    frameRate(20);
+    textFont(loadFont('monospace'), 14);
+    
+    mines = new Array(25);
+    for( i=0;i<mines.length;++i)
+        mines[i] = new Mine();
+    explosions = new Array(25);
+    for( i=0;i<mines.length;++i)
+        explosions[i] = new Explosion();
+    ship = new Ship(width/2,height/2);
+}
+
+//works with MULTIPLE keys down
+
+up = false;
+down = false;
+left = false;
+right = false;
+
+void keyPressed()
+{
+    if( key == 'w' || key == UP ) up = true;
+    if( key == 's' || key == DOWN ) down = true;
+    if( key == 'a' || key == LEFT ) left = true;
+    if( key == 'd' || key == RIGHT ) right = true;
+}
+
+void keyReleased()
+{
+    if( key == 'w' || key == UP ) up = false;
+    if( key == 's' || key == DOWN ) down = false;
+    if( key == 'a' || key == LEFT ) left = false;
+    if( key == 'd' || key == RIGHT) right = false;
+    if( key == ' ' || key == 'e' ) ship.shoot();
+} 
+
+void draw(){
+    //if( mousePressed ){
+    //    ship.z.x = mouseX;
+    //    ship.z.y = mouseY;
+    //}
+
+    if( up ) ship.fire();
+    if( down ) ship.brake();
+    if( left ) ship.left();
+    if( right ) ship.right();
+    
+    _update(ship,mines,explosions);
+    
+    //bounds
+    _bounds(ship);
+    for( m in mines )
+        _bounds(mines[m]);
+    
+    //draw
+    clear(); background(25);
+    
+    ship.draw(up);
+    for( m in mines )
+        mines[m].draw();
+    for( e in explosions )
+        explosions[e].draw();
+        
+    //more mines
+    for( m in mines )
+        if( mines[m].done() )
+            mines[m].deploy(ship);
+    
+    fill(0x80CCCCCC);
+    text("hits: "+hits, 5, height-5-18);
+    text("shot: "+kills+" crashed: "+destroyed, 5, height-5);
+}
+</script>
+<canvas width="500" height="500"></canvas>
+<span>
+<h2>Mine Hunter</h2>
+Destroy some mines... but don't worry, you can't die.
+If a mine collides when it's in red (i.e. very near the ship) it will blow up.<br/>
+Controls:
+<ul>
+ <li>'a' - left</li>
+ <li>'d' - right</li>
+ <li>'w' - thruster</li>
+ <li>'s' - brake</li>
+ <li>'e' - fire</li>
+</ul>
+Written using HTML5 (Canvas) and Javascript (with <a href="http://processingjs.org/reference" target="_blank">Processing.js</a>).<br/><br/>
+Collisions may be a bit buggy... but should be mostly accurate.<br/><br/>Tip: try to fly slowly between two mines to cause them to collide.<br/><br/>Last Update: 7/21/2010
+
+</span>
+
+</body>
+</html>

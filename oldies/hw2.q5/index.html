@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html"/>
+	<title>Hw2</title>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <script src="lib/compiler.js" type="text/javascript"></script>
+    <script src="lib/metagrammar.js" type="text/javascript"></script>
+</head>
+<script language="javascript" type="text/javascript">
+var parser;
+
+var parser_log;
+var compiler_log;
+var output_log;
+var code_pad;
+var run_log;
+
+function init(){
+    parser_log = document.getElementById('parser_log');
+    compiler_log = document.getElementById('compiler_log');
+    output_log = document.getElementById('output_log');
+    code_pad = document.getElementById('code');
+
+    try{
+        parser = PEG.buildParser(  document.getElementById('grammar').text );
+    }catch(e){
+        parser_log.innerHTML = e;
+    }
+
+    code_pad.focus();
+    
+    tests();
+}
+
+function tests(){
+    var html = document.getElementById("tests");
+    html.appendChild( test("0",0) );
+    html.appendChild( test("succ(0)",1) );
+    html.appendChild( test("succ(succ(0))",2) );
+    html.appendChild( test("app( fun(x,x) , 0 ) ",0) );
+    html.appendChild( test("app( fun(x,succ(x)) , succ(0) )",2) );
+    html.appendChild( test("app( fun(y, app( fun(f,app(f,succ(y))) , fun(x,succ(x)) ) ), succ(0) )",3) );
+}
+
+function test(code,check){
+    var val = execute(code).val;
+    var html = "<span class='test_code'>"+code + "</span>";
+    if( check==val )
+        html = html + "<span class='test_ok'>"+"OK: "+val+"</span>";
+    else
+        html = html + "<span class='test_failed'>"+"Failed: "+val+" != "+check+"</span>";
+    var div = document.createElement('div');
+    div.innerHTML = html;
+    return div;
+}
+
+
+function executeCode(){
+    try{
+        run_log = new Array();
+        var r = execute( document.getElementById('code').value );
+    }catch(e){
+        parser_log.setAttribute("class", "parser_problem");
+        parser_log.innerHTML = "Line: "+e.line+", column: "+e.column+" - "+e.message;
+        compiler_log.setAttribute("class", "info_problem");
+        compiler_log.innerHTML = "(no compiled code available)";
+        output_log.setAttribute("class", "info_problem");
+        output_log.innerHTML = "(no output available)";
+        return;
+    }
+    
+    parser_log.setAttribute("class", "parser_content");
+    parser_log.innerHTML = "<b>AST:</b> "+print_AST( r.ast );
+    
+    compiler_log.setAttribute("class", "info_content");
+    compiler_log.innerHTML = r.code;
+    
+    if(isNaN(parseInt(r.val)))
+        output_log.setAttribute("class", "info_problem");
+    else
+        output_log.setAttribute("class", "info_content");
+
+    output_log.innerHTML = "<div>Result: <b>"+r.val+"</b></div> "+prettifyRunLog();
+}
+
+function prettifyRunLog(){
+  var str = "<table class='run'> <tr> <th>#</th><th>Stack</th> <th>Environment</th> <th>Code</th> <th>Dump</th> </tr>"; 
+  var i = 0;
+  for( var n in run_log ){
+      str += "<tr><td>"+(i++)+"</td>"+
+        "<td>"+run_log[n].s+"</td>"+
+        "<td>"+run_log[n].e+"</td>"+
+        "<td>"+run_log[n].c+"</td>"+ 
+        "<td>"+run_log[n].d+"</td></tr>";
+  } 
+  return str+"</table>";
+}
+    
+
+function execute(code){
+    var ast = parser.parse( code );
+    var code = compile_secd(new Array,ast );
+    var print_code = print_compile(code);
+    var val = run_secd( code ); //this *modifies* 'code'
+    return { ast : ast , code : print_code , val : val };
+}
+</script>
+<script id="grammar" type="text/plain">
+start
+  = _ e:expr _ { return e; }
+  
+expr "expression"
+  = expr_0
+  / expr_succ
+  / expr_fun
+  / expr_app
+  / expr_x
+  / "(" _ e:expr _ ")" { return e; }
+
+expr_0
+  = "0" { return new AST_zero(); }
+
+expr_succ
+  = "succ" _ "(" _ e:expr _ ")" { return new AST_succ(e); }
+
+expr_fun
+  = "fun" _ "(" _ x:expr_x _ "," _ e:expr _ ")" { return new AST_fun(x,e); }
+
+expr_app
+  = "app" _ "(" _ e1:expr _ "," _ e2:expr _ ")" { return new AST_app(e1,e2); }
+
+expr_x "identifier"
+  = !keyword i:[a-zA-Z]+ { return new AST_id(i.join("")); }
+
+keyword "keyword"
+  = ( 
+    "succ"
+  / "app"
+  / "fun"
+  )
+
+_ "whitespace"
+  = [\t\v\f \n\r\c]*
+</script>
+<script type="text/javascript">
+var AST_ZERO=0, AST_SUCC=1, AST_FUN=2, AST_APP=3, AST_ID=4;
+
+function AST_zero(){ this.kind = AST_ZERO; }
+function AST_succ(e){ this.kind = AST_SUCC; this.e = e; }
+function AST_fun(x,e){ this.kind = AST_FUN; this.e = e; this.x = x; }
+function AST_app(e1,e2){ this.kind = AST_APP; this.e1 = e1; this.e2 = e2; }
+function AST_id(id){ this.kind = AST_ID; this.id = id; }
+
+function print_AST(ast){
+    switch(ast.kind){
+        case AST_ZERO: return "ZERO";
+        case AST_SUCC: return "SUCC("+print_AST(ast.e)+")";
+        case AST_FUN: return "FUN("+print_AST(ast.x)+","+print_AST(ast.e)+")";
+        case AST_APP: return "APP("+print_AST(ast.e1)+","+print_AST(ast.e2)+")";
+        case AST_ID: return "ID("+ast.id+")";
+    }
+}
+
+var SECD_LDC=0,SECD_LV=1,SECD_LDF=2,SECD_SUCC=3,SECD_AP=4,SECD_RET=5;
+
+function compile_secd(l,e){
+    var c = new Array;
+    switch(e.kind){
+    
+        case AST_ZERO: 
+            c.push(0); 
+            c.push(SECD_LDC); 
+            break;
+            
+        case AST_SUCC: 
+            c.push(SECD_SUCC);
+            c = c.concat(compile_secd(l,e.e));
+            break;
+            
+        case AST_FUN:
+            l.push( e.x.id );
+            c.push( [SECD_RET].concat( compile_secd(l,e.e) ) );
+            l.pop();
+            c.push(SECD_LDF);
+            break;
+            
+        case AST_APP:
+            c.push(SECD_AP);
+            c = c.concat(compile_secd(l,e.e1));
+            c = c.concat(compile_secd(l,e.e2));
+            break;
+            
+        case AST_ID:
+            c.push( l.indexOf(e.id) );
+            c.push(SECD_LV);
+            break;
+    
+    }    
+    return c;
+}
+
+function print_compile(c){
+    var str ="";
+    for(var i=c.length-1;i>=0;--i){
+        switch( c[i] ){
+
+        case SECD_LDC:
+            str = str + "(LDC::"+c[--i]+")";
+            break;
+
+        case SECD_SUCC:
+            str = str + "SUCC";
+            break;
+
+        case SECD_LV:
+            str = str + "(LV::"+c[--i]+")";
+            break;
+
+        case SECD_LDF:
+            str = str + "LDF::["+print_compile( c[--i] )+"]";
+            break;
+
+        case SECD_AP:
+            str = str + "AP";
+            break;
+            
+        case SECD_RET:
+            str = str + "RET";
+            break;
+        }
+        if( (i-1)>=0 )
+            str = str + "::";
+    }
+    return str;
+}
+
+function print_stack(s){
+  var str = "";
+  for( var i=0;i<s.length; ++i){
+    if( i != 0 )
+      str +=",";
+    
+    if( typeof(s[i]) != "object" )
+      str += s[i];
+    else
+     str += "["+print_compile(s[i].c)+"@"+s[i].e+"]";
+  }
+
+  return str;
+}
+
+function print_dump(s){
+  var str = "";
+  for( var i=0;i<s.length; ++i){
+    if( i != 0 )
+      str +=",";
+
+    var d = s[i];
+    str += "[s: "+ print_stack(d.s) +", e: "+print_stack(d.e)+", c: "+print_compile(d.c)+"]";
+  }
+  return str;
+}
+
+function run_secd(code){
+    var s = new Array;
+    var e = new Array;
+    var c = code;
+    var d = new Array;
+    
+    while( c.length != 0 ){
+        
+        if( run_log )
+          run_log.push( { s : print_stack(s) , 
+              e : print_stack(e) , 
+              c : print_compile(c) , 
+              d : print_dump(d) } );
+        
+        switch( c.pop() ){
+
+        case SECD_LDC:
+            s.push( c.pop() );
+            break;
+
+        case SECD_SUCC:
+            s.push( s.pop()+1 );
+            break;
+
+        case SECD_LV:
+            s.push( e[c.pop()] );
+            break;
+
+        case SECD_LDF:
+            s.push( { e : e.slice() , c : c.pop() } );
+            break;
+
+        case SECD_AP:
+            var tmp_fun = s.pop();
+            var v_arg = s.pop();
+            d.push( { s : s , e : e , c : c } );
+            s = new Array;
+            e = tmp_fun.e;
+            e.push( v_arg );
+            c = tmp_fun.c;
+            break;
+            
+        case SECD_RET:
+            var v = s.pop();
+            var tmp = d.pop();
+            s = tmp.s;
+            s.push(v);
+            e = tmp.e;
+            c = tmp.c;
+            break;
+        }
+    }
+    
+            if( run_log )
+          run_log.push( { s : print_stack(s) , 
+              e : print_stack(e) , 
+              c : print_compile(c) , 
+              d : print_dump(d) } );
+              
+    return s.pop();
+}
+</script>
+<body onLoad="init()">
+<div class="content">
+    <div>
+        <div class="title">FfPL 2010/2011</div>
+        <div class="sub_title">Homework 2: Q5 - &lambda;<sub>N</sub> SECD compiler + machine</div>
+    </div>
+    <!-- -->
+    <div class="info_block">
+        <textarea id="code" rows="3"  onkeyup="executeCode()"></textarea>
+    </div>
+    <div class="info_block">
+        <div class="parser_content" id="parser_log">Write a &lambda;<sub>N</sub> program!</div>
+    </div>
+    <!-- -->
+    <div class="info_block">
+        <div class="info_title">Compiler Output:</div>
+        <div class="info_content" id="compiler_log">(no compiled code available)</div>
+    </div>
+    <!-- -->
+    <div class="info_block">
+        <div class="info_title">SECD Output:</div>
+        <div class="info_content" id="output_log">(no output available)</div>
+    </div>
+    <!-- -->
+    <div class="info_block">
+        <div class="info_title">Self Tests:</div>
+        <div class="info_content"><span id="tests"></span></div>
+    </div>
+
+</div>
+<div class="end">&lambda;<sub>N</sub> grammar generated using <a href="http://pegjs.majda.cz/">PEG.js</a>. SECD compiler and machine written in Javascript.</div>
+</body>
+</html>
+

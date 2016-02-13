@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>Multiplication trainer</title>
+<style type="text/css">
+  body {   background: black; color: white; text-align: center; font-family: monospace;}
+  input { border: none; background: black; color: white;  outline: none; font-size: 40px; font-family: monospace;  }
+ .cell { padding: 2px 5px 2px 5px; background-color: #121F69; color: #121F69; font-size: 10px; }
+ #info , #stats{ color: gray; font-size: 20px;}
+ #equals { font-size: 40px; }
+ form , #question { display: inline; }
+ 
+ #table , #top { display: inline-block; margin-top: 50px; vertical-align: middle; }
+ .notes{ margin: 25px 2px 5px 2px; color: gray; font-size: 12px; }
+ .notes a{ font-weight: bold; text-decoration: none; color: #8D8D8D; }
+ 
+ #progress { padding: 1px 5px 1px 5px; width: 0%; background: #093607; color: white; }
+ #progress-container { width: 300px; border:2px solid #1F6847; margin: 5px 2px 5px 2px;}
+</style>
+</head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="jquery.color.js"></script>
+<script language="javascript" type="text/javascript">
+
+$(document).ready(function() {
+	init();
+	grabFocus();
+	randomQuestion();
+});
+
+var w;
+var m;
+var t;
+
+    var red = "#8F0D1C";
+    var blue = "#121F69";
+    var green = "#093607";
+
+function init(){
+    w = new Array;
+    m = (8*8)*5;
+
+    var table = $("#table");
+    for(var i=0;i<8;++i){
+        var line = document.createElement('div');
+        for(var j=0;j<8;++j){
+            w[i*8+j] = 5;
+            var elem = document.createElement('span');
+            elem.setAttribute("id","n"+(i*8+j));
+            elem.setAttribute("class","cell");
+            elem.setAttribute("title",(2+i)+"*"+(2+j));
+            elem.innerHTML=w[i+j];
+            line.appendChild(elem);
+        }
+        table.append(line);
+    }
+
+}
+
+function colorize(p){
+    var e = $('#n'+p);
+    switch( w[p] ){
+        case 9: e.animate({ backgroundColor: red, color: red},'fast'); break;
+        case 5: e.animate({ backgroundColor: blue, color: blue},'fast'); break;
+        case 1: e.animate({ backgroundColor: green, color: green},'fast'); break;
+    }
+}
+
+function grabFocus() {
+    $("#answer").val("");
+    $("#answer").focus();
+}
+
+function randomQuestion(){
+    //weighted
+    var v = Math.random()*m;
+    var s = 0;
+    for(var i=0;i<8;++i){
+        for(var j=0;j<8;++j){
+            s = s + w[i*8+j];
+            if( s >= v ){
+                $('#question').html( (i+2)+"*"+(j+2) );
+                t = new Date().getTime();
+                return;
+            }
+        }
+    }
+}
+
+var right=0, wrong=0;
+function check(event){
+    //ignore ENTER from onkeyup
+    if( event && 13 == event.keyCode  )
+	return;
+
+    var dt = new Date().getTime()-t;
+    var question = $('#question').html();
+    var answer = $('#answer').val();
+    var val = eval(question);
+    var pos = question.split("*");
+    pos = (parseInt(pos[1])-2)+(parseInt(pos[0])-2)*8; //starts @2
+    
+    //ignore if not yet the right answer
+    if( event && answer != val )
+	return;
+
+    if( answer == val ){
+        ++right;
+        if( w[pos]>1 ){
+            w[pos] = w[pos]-4;
+            m = m-4;
+	}
+    }
+    else{
+        ++wrong;
+        if( w[pos]<9 ){
+            w[pos] = w[pos]+4;
+            m = m+4;
+        }
+    }
+    colorize(pos);
+    $('#n'+pos).html( w[pos] );
+
+	if( answer != val ){
+		$("#progress")
+			.animate({ backgroundColor: red },300)
+			.animate({ backgroundColor: green },300);
+		$("#progress-container")
+			.animate({ borderTopColor: red , borderBottomColor: red, borderLeftColor: red, borderRightColor: red },300)
+			.animate({ borderTopColor: "#1F6847" , borderBottomColor: "#1F6847", borderLeftColor: "#1F6847" , borderRightColor: "#1F6847"},300);
+	}
+	
+	var s=0;
+	for( var i=0;i<64;++i ) s+=(w[i]<5?1:0);
+	s = s/64*100;
+	$("#progress").html(s+"%" )
+		.animate({ width: (290*s/100+"px")},'fast'); //buggy css, manual max-width 290px
+		
+   $("#stats")
+	.html( right+"/"+(right+wrong)+" [" +Math.round((right/(right+wrong))*100)+ "%] " )
+ 	.clearQueue()
+	.stop()
+	.animate( {color: (answer == val ? "green" : "red")}, 300)
+	.animate( {color: (answer == val ? "#005500" : "#550000")}, 500);
+    
+    $('#info').html( "("+question+"="+val+") "+(dt/1000.0)+"s" )
+	.clearQueue()
+	.stop()
+	.css({ opacity: 1 })
+	.animate( { opacity: 0.2 }, 2000);
+
+    randomQuestion();
+    grabFocus();
+}
+</script>
+<body>
+<div id="table"></div>
+<div id="top" >
+    <div id="stats">[no stats]</div>
+    <div id="equals">
+	<div id="question">?</div>
+	<form action="javascript:check(null)" onkeyup="check(event)">
+		<label>=</label> <input id="answer" autocomplete="off" type="text" size="2"/>
+	</form>
+    </div>
+    <div id="info">...</div>
+    <div id="progress-container">
+	<div id="progress">0%</div>
+    </div>
+</div>
+<div class="notes">Uses <a href="http://jquery.com/">jQuery</a>, <a href="http://plugins.jquery.com/project/color">jQuery color</a>.<br/>
+Hmm... does not work correctly with Opera.</div>
+</body>
+</html>
+

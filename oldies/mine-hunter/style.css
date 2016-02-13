@@ -1,0 +1,40 @@
+body{
+    background: #333333;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+canvas {
+    display: inline-block; 
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+}
+
+h2{
+    font-size: 14px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+span {
+    background: #AAAAAA;
+    vertical-align: top;
+    display: inline-block; 
+    width: 180px;
+    height: 480px;
+    text-align: justify;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    padding: 10px 10px 10px 10px;
+}
+
+a{
+    font-weight: bold;
+    text-decoration: none;
+    color: #111111;
+}
+
+a:hover{ text-decoration: underline; }
+a:visited { }

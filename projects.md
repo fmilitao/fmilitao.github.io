@@ -1,4 +1,4 @@
-# Projects
+# Personal Projects
 
 <!--
 Leave each item as `1.` for auto numbering.

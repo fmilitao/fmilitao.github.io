@@ -42,7 +42,68 @@
                 <div class="comment">
                   <div class="comment-content">
                     <div id="grip-content" class="comment-body markdown-body markdown-format">
-                      <p>Stuff I need to write down before I forget how to use...</p>
+                      <p>Stuff I need to write down before I forget how to use, or to not have to search for it again...</p>
+
+<h2>Git stuff</h2>
+
+<p>These generally work best if you have already set <a href="http://stackoverflow.com/questions/2596805/how-do-i-make-git-use-the-editor-of-my-choice-for-commits">your custom editor</a>.</p>
+
+<ul>
+<li>
+<p>Edit last commit message:</p>
+
+<div class="highlight highlight-source-shell"><pre>git commit --amend</pre></div>
+
+<p><a href="http://stackoverflow.com/questions/179123/edit-an-incorrect-commit-message-in-git">Source</a></p>
+</li>
+<li>
+<p>Edit last N commits or even squash them together:</p>
+
+<div class="highlight highlight-source-shell"><pre>git rebase -i <span class="pl-smi">${COMMIT_ID}</span>    <span class="pl-c">#for where COMMIT_ID is the parent of the last commit to edit.</span>
+git rebase -i HEAD~5    <span class="pl-c">#for previous 5 commits.</span></pre></div>
+
+<p><a href="http://stackoverflow.com/questions/5189560/squash-my-last-x-commits-together-using-git">Source</a></p>
+
+<p>You can get the <code>${COMMIT_ID}</code> by looking at the <code>git log</code> (or <code>git log --graph</code> for easier way to see merges).</p>
+</li>
+<li>
+<p><a href="https://git-scm.com/book/en/v1/Git-Tools-Stashing">Git stashing</a> to save changes, without committing, and checking other branches, etc.</p>
+
+<div class="highlight highlight-source-shell"><pre>git stash     <span class="pl-c"># to stash changes</span>
+... <span class="pl-c">#stuff you need to do on other branches, for instance</span>
+git stash pop <span class="pl-c"># to apply last stashed change</span></pre></div>
+</li>
+<li>
+<p>Hard reset (i.e. <strong>LOSING ALL LOCAL CHANGES</strong> unless you stash them first) to fix diverged branch (specially if someone force pushed their changes...):</p>
+
+<div class="highlight highlight-source-shell"><pre>git reset --hard <span class="pl-smi">${BRANCH}</span>
+<span class="pl-c"># if necessary:</span>
+git pull</pre></div>
+
+<p><a href="http://stackoverflow.com/questions/2452226/master-branch-and-origin-master-have-diverged-how-to-undiverge-branches">Source</a>, <a href="http://stackoverflow.com/questions/4157189/git-pull-while-ignoring-local-changes">Source</a>.</p>
+</li>
+</ul>
+
+<h2>Docker stuff</h2>
+
+<ul>
+<li>
+<p><a href="http://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode">Get bash or ssh into running container</a>:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ sudo docker <span class="pl-c1">exec</span> -i -t <span class="pl-smi">${CONTAINER_ID}</span> bash
+<span class="pl-c"># or</span>
+$ sudo docker <span class="pl-c1">exec</span> -i -t <span class="pl-smi">${CONTAINER_NAME}</span> bash</pre></div>
+</li>
+<li><p>Name the container using the <code>--name ${CONTAINER_NAME}</code> flag when running (auto-gen names are usually cool, though).</p></li>
+<li>
+<p>Get a running container's ip address:</p>
+
+<div class="highlight highlight-source-shell"><pre>docker inspect --format <span class="pl-s"><span class="pl-pds">'</span>{{ .NetworkSettings.IPAddress }}<span class="pl-pds">'</span></span> <span class="pl-smi">${CONTAINER_ID}</span></pre></div>
+
+<p><a href="http://stackoverflow.com/questions/17157721/getting-a-docker-containers-ip-address-from-the-host">Source</a></p>
+</li>
+<li><p><a href="https://github.com/wsargent/docker-cheat-sheet">Docker cheat sheet</a>.</p></li>
+</ul>
 
 <h2>Generate this page</h2>
 
@@ -50,21 +111,23 @@
 <li>
 <p>For listening to changes (launches local http server, auto-refreshes on FILE changes, opens browser):</p>
 
-<div class="highlight highlight-source-shell"><pre>grip --wide --title=<span class="pl-s"><span class="pl-pds">"</span>Notes on stuff<span class="pl-pds">"</span></span> --user-content -b FILE</pre></div>
+<div class="highlight highlight-source-shell"><pre>grip --wide --title=<span class="pl-s"><span class="pl-pds">"</span>Notes on stuff<span class="pl-pds">"</span></span> --user-content -b <span class="pl-smi">${FILE}</span></pre></div>
 </li>
 <li>
 <p>For generating standalone html file:</p>
 
-<div class="highlight highlight-source-shell"><pre>grip --wide --title=<span class="pl-s"><span class="pl-pds">"</span>Notes on stuff<span class="pl-pds">"</span></span> --user-content --export FILE</pre></div>
+<div class="highlight highlight-source-shell"><pre>grip --wide --title=<span class="pl-s"><span class="pl-pds">"</span>Notes on stuff<span class="pl-pds">"</span></span> --user-content --export <span class="pl-smi">${FILE}</span></pre></div>
 </li>
 <li>
 <p>To clean up the ugly line on the bottom left:</p>
 
-<div class="highlight highlight-source-shell"><pre>sed -i .bak  <span class="pl-s"><span class="pl-pds">'</span>s/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/g<span class="pl-pds">'</span></span> FILE</pre></div>
+<div class="highlight highlight-source-shell"><pre>sed -i .bak  <span class="pl-s"><span class="pl-pds">'</span>s/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/g<span class="pl-pds">'</span></span> <span class="pl-smi">${FILE}</span></pre></div>
 </li>
 </ol>
 
-<p><a href="https://github.com/joeyespo/grip">Grip installation</a></p>
+<p><a href="https://github.com/joeyespo/grip">Grip installation</a>.</p>
+
+<p>Also be warned that using grip without authentication (i.e. without a <code>--user ${GITHUB_USER_NAME}</code>) has a limit of about 60 requests per hour since grip will be using Github's API to generate the html. However, you can just provide the <code>${GITHUB_USER_NAME}</code> using that flag. Once you provide the corresponding github password, you will be allowed to generate up to 5000 requests per hour (<a href="https://developer.github.com/v3/#rate-limiting">https://developer.github.com/v3/#rate-limiting</a>).</p>
 
 <h2>Update local fork</h2>
 

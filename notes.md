@@ -36,6 +36,25 @@ These generally work best if you have already set [your custom editor](http://st
   ```
   [Source](http://stackoverflow.com/questions/2452226/master-branch-and-origin-master-have-diverged-how-to-undiverge-branches), [Source](http://stackoverflow.com/questions/4157189/git-pull-while-ignoring-local-changes).
 
+* Pushing local branches to origin while also setting upstream:
+  ```bash
+  git push -u origin ${BRANCH}
+  ```
+  [Source](http://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time)
+
+* Checkout files from specific branches:
+  ```bash
+  git checkout ${BRANCH} -- ${PATH_TO_FILE}
+  ```
+  [Source](http://nicolasgallagher.com/git-checkout-specific-files-from-another-branch/)
+
+* Keep theirs/ours version of files in merge conflicts:
+  ```bash
+  git checkout --ours ${FILE}    # uses version we have
+  git checkout --theirs ${FILE}  # uses version to be merged in
+  ```
+  [Source](http://gitready.com/advanced/2009/02/25/keep-either-file-in-merge-conflicts.html)
+
 ## Docker stuff
 
 * [Get bash or ssh into running container](http://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode):
@@ -125,6 +144,7 @@ latex-pdf FILE.tex
 Update github pages branch of a project:
   ```bash
   git checkout gh-pages
+  # TODO: was the following due to not setting upstream?
   git pull origin gh-pages #sometimes I need this...
   git rebase master
   git push origin gh-pages

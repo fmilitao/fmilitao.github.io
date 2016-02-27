@@ -82,6 +82,28 @@ git pull</pre></div>
 
 <p><a href="http://stackoverflow.com/questions/2452226/master-branch-and-origin-master-have-diverged-how-to-undiverge-branches">Source</a>, <a href="http://stackoverflow.com/questions/4157189/git-pull-while-ignoring-local-changes">Source</a>.</p>
 </li>
+<li>
+<p>Pushing local branches to origin while also setting upstream:</p>
+
+<div class="highlight highlight-source-shell"><pre>git push -u origin <span class="pl-smi">${BRANCH}</span></pre></div>
+
+<p><a href="http://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time">Source</a></p>
+</li>
+<li>
+<p>Checkout files from specific branches:</p>
+
+<div class="highlight highlight-source-shell"><pre>git checkout <span class="pl-smi">${BRANCH}</span> -- <span class="pl-smi">${PATH_TO_FILE}</span></pre></div>
+
+<p><a href="http://nicolasgallagher.com/git-checkout-specific-files-from-another-branch/">Source</a></p>
+</li>
+<li>
+<p>Keep theirs/ours version of files in merge conflicts:</p>
+
+<div class="highlight highlight-source-shell"><pre>git checkout --ours <span class="pl-smi">${FILE}</span>    <span class="pl-c"># uses version we have</span>
+git checkout --theirs <span class="pl-smi">${FILE}</span>  <span class="pl-c"># uses version to be merged in</span></pre></div>
+
+<p><a href="http://gitready.com/advanced/2009/02/25/keep-either-file-in-merge-conflicts.html">Source</a></p>
+</li>
 </ul>
 
 <h2>Docker stuff</h2>
@@ -181,6 +203,7 @@ And create <code>~/.latexmkrc</code> on home dir (for use with <a href="http://s
 <p>Update github pages branch of a project:</p>
 
 <div class="highlight highlight-source-shell"><pre>  git checkout gh-pages
+  <span class="pl-c"># TODO: was the following due to not setting upstream?</span>
   git pull origin gh-pages <span class="pl-c">#sometimes I need this...</span>
   git rebase master
   git push origin gh-pages</pre></div>

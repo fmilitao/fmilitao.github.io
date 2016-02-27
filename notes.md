@@ -169,5 +169,6 @@ Then return to work branch.
 
 ### Other stuff
 
+* [Bash string operators](http://sookocheff.com/post/bash/bash-string-operators/)
 * [On using markdown on github pages](http://stackoverflow.com/questions/15124547/can-i-use-markdown-file-in-github-page)
 * [Good JS parser?](http://esprima.org/)

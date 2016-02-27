@@ -4,7 +4,7 @@ TITLE="$1"
 
 if [ ! -z $3 ]
 then
-  USER=(--user $2)
+  USER="--user $2"
   FILE=$3
 else
   USER=""
@@ -13,7 +13,7 @@ fi
 
 OUTPUT="${FILE%.md}.html"
 
-echo $TITLE $USER $FILE $OUTPUT
+#echo $TITLE $USER $FILE $OUTPUT
 
 grip --wide --title="${TITLE}" --user-content --export ${USER} ${FILE}
 

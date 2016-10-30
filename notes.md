@@ -90,8 +90,6 @@ These generally work best if you have already set [your custom editor](http://st
 	milton = push -f
   # list all branches last commit author
 	branches = !git branch -a | xargs -n1 git log -n1 --date=short --format='%C(cyan)%<(16,trunc)%an%Creset %C(green)%ad%Creset %D' 2>/dev/null | sort | uniq
-[credential]
-	helper = cache
 [branch "master"]
 [core]
 	pager = less -F -X

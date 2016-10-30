@@ -142,8 +142,6 @@ git fetch --all --prune</pre></div>
     milton = push -f
   # list all branches last commit author
     branches = !git branch -a | xargs -n1 git log -n1 --date=short --format='%C(cyan)%&lt;(16,trunc)%an%Creset %C(green)%ad%Creset %D' 2&gt;/dev/null | sort | uniq
-[credential]
-    helper = cache
 [branch "master"]
 [core]
     pager = less -F -X

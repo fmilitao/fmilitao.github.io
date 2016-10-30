@@ -1,3 +1,4 @@
+# Random Notes
 
 Stuff I need to write down before I forget how to use, or to not have to search for it again...
 
@@ -55,6 +56,66 @@ These generally work best if you have already set [your custom editor](http://st
   ```
   [Source](http://gitready.com/advanced/2009/02/25/keep-either-file-in-merge-conflicts.html)
 
+* Delete remove branch:
+  ```bash
+  git push origin --delete ${BRANCH_NAME}
+  # and on other machines you should do:
+  git fetch --all --prune
+  ```
+  [Source](http://stackoverflow.com/questions/2003505/how-to-delete-a-git-branch-both-locally-and-remotely)
+
+* Useful `.gitconfig` options (suggested by [Diogo Sousa](https://github.com/orium)):
+```
+[push]
+	default = simple
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	unstage = reset HEAD --
+	uncommit = reset --soft HEAD^ --
+	last = log -1 HEAD --stat
+	fmerge = merge --no-ff
+	di = diff --patience
+	gr = grep --break --heading --line-number
+	lg = log --date=short --format='%C(yellow)%h%Creset %C(cyan)%<(16,trunc)%an%Creset %C(green)%ad%Creset %s%C(red)%d%Creset'
+	uplg = !git fetch --quiet && git lg HEAD...@{u}
+	uplog = !git fetch --quiet && git log HEAD...@{u}
+	tags = !git log --tags --no-walk --reverse --date=short --format='%C(cyan)%<(24,trunc)%an%Creset %C(green)%ad%Creset %C(red)%D%Creset' | sed 's/tag: //g'
+	tree = !git lg --graph --all
+  # delete remote branch
+	delrembr = push origin --delete
+	dit = difftool -d
+	milton = push -f
+  # list all branches last commit author
+	branches = !git branch -a | xargs -n1 git log -n1 --date=short --format='%C(cyan)%<(16,trunc)%an%Creset %C(green)%ad%Creset %D' 2>/dev/null | sort | uniq
+[credential]
+	helper = cache
+[branch "master"]
+[core]
+	pager = less -F -X
+[color]
+	ui = true
+[grep]
+	lineNumber = true
+	extendRegexp = true
+[diff]
+	renames = copy
+	renameLimit = 5000
+[gc]
+	auto = 1024
+[log]
+	decorate = short
+[color "diff"]
+[pull]
+	ff = only
+[merge]
+	tool = meld
+[rerere]
+	enabled = true
+```
+
 ## Docker stuff
 
 * [Get bash or ssh into running container](http://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode):
@@ -77,19 +138,19 @@ These generally work best if you have already set [your custom editor](http://st
 
 ## Generate this page
 
-1. For listening to changes (launches local http server, auto-refreshes on FILE changes, opens browser):
+1. For listening to changes (launches local http server, auto-refreshes on MARKDOWN_FILE changes, opens browser):
   ```bash
-  grip --wide --title="Notes on stuff" --user-content -b ${FILE}
+  grip --wide --title="Random Notes" --user-content -b ${MARKDOWN_FILE}
   ```
 
 2. For generating standalone html file:
   ```bash
-  grip --wide --title="Notes on stuff" --user-content --export ${FILE}
+  grip --wide --title="Random Notes" --user-content --export ${MARKDOWN_FILE}
   ```
 
 3. To clean up the ugly line on the bottom left:
   ```bash
-  sed -i .bak  's/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";background-color:#f3f3f3}/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/g' ${FILE}
+  sed -i .bak  's/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";background-color:#f3f3f3}/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/g' ${HTML_FILE}
   ```
 
 [Grip installation](https://github.com/joeyespo/grip).

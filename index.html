@@ -1,72 +1,98 @@
 <head>
   <meta content="text/html; charset=utf-8" http-equiv="content-type">
   <title>Filipe Militão</title>
+  <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css">
   <style type="text/css">
-  html {
-    /* credit: http://css-tricks.com/perfect-full-page-background-image/ */
-    background: #DDDDCC url('background.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-  }
+    html {
+      /* credit: http://css-tricks.com/perfect-full-page-background-image/ */
+      background: #DDDDCC url('background.jpg') no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    }
 
-  .name {
-    width: 100%;
-    font-size: 70px;
-    color: black;
-    text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
-  }
+    .name {
+      width: 100%;
+      font-size: 5em;
+      color: black;
+      /*text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;*/
+      /*text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;*/
+    }
 
-  .container {
-    text-align: center;
-    transform: translateY(-50%) translateX(-50%);
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-  }
+    .container {
+      text-align: center;
+      transform: translateY(-50%) translateX(-50%);
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
 
-  .line {
-    width: 400px;
-    height: 30px;
-    margin: auto;
-    display: inline-block;
-  }
+    .line {
+      width: 100%;
+      display: inline-block;
+      margin-top: 10px;
+    }
 
-  .button {
-    display: inline-block;
-    text-align: center;
-    vertical-align: middle;
-    width: 100px;
-    height: 40px;
-    margin: 10px;
-    /*border: 5px solid red;*/
-  }
+    .button {
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      min-width: 40%;
+      font-size: 2em;
+    }
 
-  a {
-    font-variant: small-caps;
-    text-decoration: none;
-    color: black;
-    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;
-    font-weight: bold;
-  }
-  a:hover::before {
-    content: "[ ";
-  }
-  a:hover::after {
-    content: " ]";
-  }
+    a {
+      font-variant: small-caps;
+      text-decoration: none;
+      color: black;
+      /*text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;*/
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-decoration-color: purple;
+    }
+
+    hr.sep {
+      border-color: black;
+      border-style: solid;
+      width: 100%;
+    }
+
+    .footer {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      text-align: center;
+      transform: translateY(-50%) translateX(-50%);
+    }
+
+    .footer a {
+      padding-right: 5px;
+    }
+
+    .custom-size {
+      font-size: 1.4em;
+      color: white;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="name"><b>Filipe</b>Militão</div>
     <div class="line">
       <div class="button"><a href="projects.html">Projects</a></div>
-      <div class="button"><a href="notes.html">Notes</a></div>
       <div class="button"><a href="http://www.cs.cmu.edu/~foliveir/">Research</a></div>
     </div>
+  </div>
+  <div class="footer">
+    <a href="https://github.com/fmilitao"><i class="fa fa-github custom-size" aria-hidden="true"></i><a/>
+    <a href="https://www.linkedin.com/in/filipedomilitao"><i class="fa fa-linkedin custom-size" aria-hidden="true"></i><a/>
   </div>
 </body>

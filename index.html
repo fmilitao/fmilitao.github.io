@@ -5,7 +5,7 @@
   <style type="text/css">
     html {
       /* credit: http://css-tricks.com/perfect-full-page-background-image/ */
-      background: #DDDDCC url('background.jpg') no-repeat center center fixed;
+      background: #DDDDCC url('background2.jpg') no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -15,10 +15,8 @@
 
     .name {
       width: 100%;
-      font-size: 5em;
+      font-size: 4em;
       color: black;
-      /*text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;*/
-      /*text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;*/
     }
 
     .container {
@@ -33,52 +31,35 @@
     .line {
       width: 100%;
       display: inline-block;
-      margin-top: 10px;
-    }
-
-    .button {
-      display: inline-block;
-      text-align: center;
-      vertical-align: middle;
-      min-width: 40%;
-      font-size: 2em;
+      margin-top: 20px;
+      font-size: 1.5em;
     }
 
     a {
-      font-variant: small-caps;
-      text-decoration: none;
       color: black;
-      /*text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff;*/
       font-weight: bold;
+      text-decoration: none;
     }
 
     a:hover {
-      text-decoration: underline;
-      text-decoration-color: purple;
-    }
-
-    hr.sep {
-      border-color: black;
-      border-style: solid;
-      width: 100%;
+      border-color: purple;
+      border-width: 3px;
+      border-bottom-style: solid;
     }
 
     .footer {
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      text-align: center;
-      transform: translateY(-50%) translateX(-50%);
+      margin-top: 20px;
     }
 
     .footer a {
-      padding-right: 5px;
+      margin-left: 5px;
+      margin-right: 5px;
     }
 
     .custom-size {
-      font-size: 1.4em;
-      color: white;
+      font-size: 1.8em;
+      color: black;
+      padding: 2px;
     }
   </style>
 </head>
@@ -87,12 +68,12 @@
   <div class="container">
     <div class="name"><b>Filipe</b>Militão</div>
     <div class="line">
-      <div class="button"><a href="projects.html">Projects</a></div>
-      <div class="button"><a href="http://www.cs.cmu.edu/~foliveir/">Research</a></div>
+      I am a software engineer with a PhD in Computer Science.
+      You can take a look at my personal <a href="projects.html">projects</a> and <a href="http://www.cs.cmu.edu/~foliveir/">research</a> work.
     </div>
-  </div>
-  <div class="footer">
-    <a href="https://github.com/fmilitao"><i class="fa fa-github custom-size" aria-hidden="true"></i><a/>
-    <a href="https://www.linkedin.com/in/filipedomilitao"><i class="fa fa-linkedin custom-size" aria-hidden="true"></i><a/>
+    <div class="footer">
+      <a title="github" href="https://github.com/fmilitao"><i class="fa fa-github custom-size" aria-hidden="true"></i></a>
+      <a title="linkedin" href="https://www.linkedin.com/in/filipedomilitao"><i class="fa fa-linkedin custom-size" aria-hidden="true"></i></a>
+    </div>
   </div>
 </body>

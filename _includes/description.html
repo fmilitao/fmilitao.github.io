@@ -1,0 +1,22 @@
+<ul class="project-description">
+{% if include.project_description %}
+  <li>
+    <i class="fa fa-info-circle fa-fw" aria-hidden="true"></i>
+      {{ include.project_description }}
+  </li>
+{% endif %}
+{% if include.project_tech %}
+  <li>
+    <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
+      {{ include.project_tech }}
+  </li>
+{% endif %}
+{% if include.project_name %}
+  <li>
+    <i class="fa fa-code-fork fa-fw" aria-hidden="true"></i>
+    <a href="https://github.com/{{ site.github_username }}/{{ include.project_name }}">
+      github.com/{{ site.github_username }}/{{ include.project_name }}
+    </a>
+  </li>
+{% endif %}
+</ul>

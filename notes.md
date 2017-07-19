@@ -1,3 +1,6 @@
+
+**CAUTION** This page is not formatted properly. These are just some random notes...
+
 # Random Notes
 
 Stuff I need to write down before I forget how to use, or to not have to search for it again...
@@ -64,6 +67,17 @@ These generally work best if you have already set [your custom editor](http://st
   ```
   [Source](http://stackoverflow.com/questions/2003505/how-to-delete-a-git-branch-both-locally-and-remotely)
 
+* Fetch and prune remotes that were deleted: `git fetch --all --prune --tags`
+
+* Remote branches look out:
+```bash
+# counts
+git for-each-ref refs/remotes/ --format='%(committername)' | sort | uniq -c | sort -nr
+
+# only those that are yours
+git for-each-ref --sort=committerdate refs/remotes/ --format='%(committername) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) -  (%(color:green)%(committerdate:relative)%(color:reset))' | grep <your name>
+```
+
 * Useful `.gitconfig` options (suggested by [Diogo Sousa](https://github.com/orium)):
 ```
 [push]
@@ -90,6 +104,7 @@ These generally work best if you have already set [your custom editor](http://st
 	milton = push -f
   # list all branches last commit author
 	branches = !git branch -a | xargs -n1 git log -n1 --date=short --format='%C(cyan)%<(16,trunc)%an%Creset %C(green)%ad%Creset %D' 2>/dev/null | sort | uniq
+	resetsm = !git submodule foreach git submodule init && git submodule update --recursive
 [branch "master"]
 [core]
 	pager = less -F -X
@@ -172,6 +187,16 @@ Also be warned that using grip without authentication (i.e. without a `--user ${
   git push origin
   ```
 [Source](https://help.github.com/articles/syncing-a-fork/)
+
+## Bash Tips
+
+```bash
+# disk usage
+du -h -d 1 *
+
+# use capture groups in sed
+sed -e 's/.*"id":\([0-9]\{1,15\}\).*"type":"\([a-zA-Z]\{1,10\}\).*/\1 \2/g' ${FILE}
+```
 
 ## Show current time in terminal prompt
 

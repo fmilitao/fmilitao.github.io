@@ -110,7 +110,7 @@ These generally work best if you have already set [your custom editor](http://st
   git push origin gh-pages
   ```
 
-Then return to your work branch.
+  Then return to your work branch.
 
 * Remote branches look out:
 

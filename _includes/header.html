@@ -1,5 +1,5 @@
 <header class="site-header">
   <div class="wrapper">
-    <h1 class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</h1>
+    <h1 class="site-title" href="{{ site.baseurl }}/">{% if page.minititle %}{{ page.minititle }}{% else %}{{ site.title }}{% endif %}</h1>
   </div>
 </header>

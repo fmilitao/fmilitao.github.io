@@ -10,18 +10,17 @@ minititle: Notes
 5. [AFS on MacOS](#afs-on-macos)
 6. [Other](#other)
 
-
 # Git
 
 These generally work best if you have already set [your custom editor](http://stackoverflow.com/questions/2596805/how-do-i-make-git-use-the-editor-of-my-choice-for-commits).
 
-* Edit last commit message ([source](http://stackoverflow.com/questions/179123/edit-an-incorrect-commit-message-in-git)):
+- Edit last commit message ([source](http://stackoverflow.com/questions/179123/edit-an-incorrect-commit-message-in-git)):
 
   ```bash
   git commit --amend
   ```
 
-* Edit last N commits or even squash them together ([source](http://stackoverflow.com/questions/5189560/squash-my-last-x-commits-together-using-git)):
+- Edit last N commits or even squash them together ([source](http://stackoverflow.com/questions/5189560/squash-my-last-x-commits-together-using-git)):
 
   ```bash
   # for where COMMIT_ID is the parent of the last commit to edit
@@ -32,7 +31,7 @@ These generally work best if you have already set [your custom editor](http://st
 
   You can get the `${COMMIT_ID}` by looking at the `git log` (or `git log --graph` for easier way to see merges).
 
-* [Git stashing](https://git-scm.com/book/en/v1/Git-Tools-Stashing) to save changes, without committing (and check other branches, etc.):
+- [Git stashing](https://git-scm.com/book/en/v1/Git-Tools-Stashing) to save changes, without committing (and check other branches, etc.):
 
   ```bash
   # to stash changes
@@ -42,7 +41,7 @@ These generally work best if you have already set [your custom editor](http://st
   git stash pop
   ```
 
-* Hard reset (i.e. **LOSING ALL LOCAL CHANGES** unless you stash them first) to fix diverged branch. Specially useful if someone force pushed their changes. ([source](http://stackoverflow.com/questions/2452226/master-branch-and-origin-master-have-diverged-how-to-undiverge-branches), [source](http://stackoverflow.com/questions/4157189/git-pull-while-ignoring-local-changes)):
+- Hard reset (i.e. **LOSING ALL LOCAL CHANGES** unless you stash them first) to fix diverged branch. Specially useful if someone force pushed their changes. ([source](http://stackoverflow.com/questions/2452226/master-branch-and-origin-master-have-diverged-how-to-undiverge-branches), [source](http://stackoverflow.com/questions/4157189/git-pull-while-ignoring-local-changes)):
 
   ```bash
   git reset --hard ${BRANCH}
@@ -50,19 +49,19 @@ These generally work best if you have already set [your custom editor](http://st
   git pull
   ```
 
-* Pushing local branches to origin while also setting upstream ([source](http://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time)):
+- Pushing local branches to origin while also setting upstream ([source](http://stackoverflow.com/questions/6089294/why-do-i-need-to-do-set-upstream-all-the-time)):
 
   ```bash
   git push -u origin ${BRANCH}
   ```
 
-* Checkout files from specific branches ([source](http://nicolasgallagher.com/git-checkout-specific-files-from-another-branch/)):
+- Checkout files from specific branches ([source](http://nicolasgallagher.com/git-checkout-specific-files-from-another-branch/)):
 
   ```bash
   git checkout ${BRANCH} -- ${PATH_TO_FILE}
   ```
 
-* Keep theirs/ours version of files in merge conflicts ([source](http://gitready.com/advanced/2009/02/25/keep-either-file-in-merge-conflicts.html)):
+- Keep theirs/ours version of files in merge conflicts ([source](http://gitready.com/advanced/2009/02/25/keep-either-file-in-merge-conflicts.html)):
 
   ```bash
   # uses version we have
@@ -71,14 +70,14 @@ These generally work best if you have already set [your custom editor](http://st
   git checkout --theirs ${FILE}
   ```
 
-* Ensure `upstream` points to correct URL, i.e. original owner ([source](https://help.github.com/articles/configuring-a-remote-for-a-fork/)):
+- Ensure `upstream` points to correct URL, i.e. original owner ([source](https://help.github.com/articles/configuring-a-remote-for-a-fork/)):
 
   ```bash
   git remote -v #lists remotes, if no 'upstream' then add manually:
   git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
   ```
 
-* Fetch and merge, push to origin ([source](https://help.github.com/articles/syncing-a-fork/)):
+- Fetch and merge, push to origin ([source](https://help.github.com/articles/syncing-a-fork/)):
 
   ```bash
   git fetch upstream
@@ -87,7 +86,7 @@ These generally work best if you have already set [your custom editor](http://st
   git push origin
   ```
 
-* Delete remote branch ([source](http://stackoverflow.com/questions/2003505/how-to-delete-a-git-branch-both-locally-and-remotely)):
+- Delete remote branch ([source](http://stackoverflow.com/questions/2003505/how-to-delete-a-git-branch-both-locally-and-remotely)):
 
   ```bash
   git push origin --delete ${BRANCH_NAME}
@@ -95,13 +94,13 @@ These generally work best if you have already set [your custom editor](http://st
   git fetch --all --prune
   ```
 
-* Fetch and prune remotes that were deleted:
+- Fetch and prune remotes that were deleted:
 
   ```bash
   git fetch --all --prune --tags
   ```
 
-* Update github pages branch of a project ([source](http://lea.verou.me/2011/10/easily-keep-gh-pages-in-sync-with-master/)):
+- Update github pages branch of a project ([source](http://lea.verou.me/2011/10/easily-keep-gh-pages-in-sync-with-master/)):
 
   ```bash
   git checkout gh-pages
@@ -112,7 +111,7 @@ These generally work best if you have already set [your custom editor](http://st
 
   Then return to your work branch.
 
-* Remote branches look out:
+- Remote branches look out:
 
   ```bash
   # counts
@@ -121,7 +120,7 @@ These generally work best if you have already set [your custom editor](http://st
   git for-each-ref --sort=committerdate refs/remotes/ --format='%(committername) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) -  (%(color:green)%(committerdate:relative)%(color:reset))' | grep <your name>
   ```
 
-* Useful `.gitconfig` options (suggested by [Diogo Sousa](https://github.com/orium)):
+- Useful `.gitconfig` options (suggested by [Diogo Sousa](https://github.com/orium)):
 
   ```
   [push]
@@ -175,7 +174,7 @@ These generally work best if you have already set [your custom editor](http://st
 
 # Docker
 
-* [Get bash or ssh into running container](http://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode):
+- [Get bash or ssh into running container](http://askubuntu.com/questions/505506/how-to-get-bash-or-ssh-into-a-running-container-in-background-mode):
 
   ```bash
   $ sudo docker exec -i -t ${CONTAINER_ID} bash
@@ -183,31 +182,31 @@ These generally work best if you have already set [your custom editor](http://st
   $ sudo docker exec -i -t ${CONTAINER_NAME} bash
   ```
 
-* Name the container using the `--name ${CONTAINER_NAME}` flag when running (auto-gen names are usually cool, though).
+- Name the container using the `--name ${CONTAINER_NAME}` flag when running (auto-gen names are usually cool, though).
 
-* Get a running container's ip address ([source](http://stackoverflow.com/questions/17157721/getting-a-docker-containers-ip-address-from-the-host)):
+- Get a running container's ip address ([source](http://stackoverflow.com/questions/17157721/getting-a-docker-containers-ip-address-from-the-host)):
 
   ```bash
   docker inspect --format '{{ .NetworkSettings.IPAddress }}' ${CONTAINER_ID}
   ```
 
-* [Docker cheat sheet](https://github.com/wsargent/docker-cheat-sheet).
+- [Docker cheat sheet](https://github.com/wsargent/docker-cheat-sheet).
 
 # Generating HTML from Github flavored Markdown
 
-* For listening to changes (launches local http server, auto-refreshes on MARKDOWN_FILE changes, opens browser):
+- For listening to changes (launches local http server, auto-refreshes on MARKDOWN_FILE changes, opens browser):
 
   ```bash
   grip --wide --title="Random Notes" --user-content -b ${MARKDOWN_FILE}
   ```
 
-* For generating standalone html file:
+- For generating standalone html file:
 
   ```bash
   grip --wide --title="Random Notes" --user-content --export ${MARKDOWN_FILE}
   ```
 
-* To clean up the ugly line on the bottom left:
+- To clean up the ugly line on the bottom left:
 
   ```bash
   sed -i .bak  's/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";background-color:#f3f3f3}/.discussion-timeline::before{position:absolute;top:0;bottom:0;left:79px;z-index:-1;display:block;width:2px;content:"";}/g' ${HTML_FILE}
@@ -219,40 +218,41 @@ Be warned that using grip without authentication (i.e. without a `--user ${GITHU
 
 # Bash
 
-* [Bash string operators](http://sookocheff.com/post/bash/bash-string-operators/)
+- [Bash string operators](http://sookocheff.com/post/bash/bash-string-operators/)
 
-* Disk usage:
+- Disk usage:
 
   ```bash
   # disk usage
   du -h -d 1 *
   ```
 
-* Capture groups in sed:
+- Capture groups in sed:
 
   ```bash
   # use capture groups in sed
   sed -e 's/.*"id":\([0-9]\{1,15\}\).*"type":"\([a-zA-Z]\{1,10\}\).*/\1 \2/g' ${FILE}
   ```
 
-* Show current time in terminal prompt by adding the line to `.bash_profile` (for mac terminals):
+- Show current time in terminal prompt by adding the line to `.bash_profile` (for mac terminals):
 
   ```bash
   export PS1="\t$ "
   ```
 
-* Latexmk alias ([source](http://jon.smajda.com/2008/03/08/latexmk/)). Add line to `.bash_profile`:
+- Latexmk alias ([source](http://jon.smajda.com/2008/03/08/latexmk/)). Add line to `.bash_profile`:
 
   ```bash
   alias latexmk-pdf='latexmk -pdf -pvc -silent'
   ```
 
   The `-silent` option may not be sane since errors do not cause abort.
-  And create `~/.latexmkrc ` on home dir (for use with [Skim](http://skim-app.sourceforge.net/)):
+  And create `~/.latexmkrc` on home dir (for use with [Skim](http://skim-app.sourceforge.net/)):
 
   ```bash
   $pdf_previewer = "open -a /Applications/Skim.app"; $clean_ext = "paux lox pdfsync out";
   ```
+
   Usage (will watch all files reference by `FILE.tex`):
 
   ```bash
@@ -263,17 +263,23 @@ Be warned that using grip without authentication (i.e. without a `--user ${GITHU
 
 Follow the steps ([source](http://www.cs.cmu.edu/~help/afs/afs_authentication.html)):
 
-  * Authentication:
+- Authentication:
 
-    ```bash
-    kinit <username>@CS.CMU.EDU
-    aklog cs.cmu.edu -k CS.CMU.EDU
-    ```
+  ```bash
+  kinit <username>@CS.CMU.EDU
+  aklog cs.cmu.edu -k CS.CMU.EDU
+  ```
 
-    Should have `tokens`.
+  Should have `tokens`.
 
-  * When done `unlog`.
+- When done `unlog`.
 
 # Other
 
-* [LiveJS](http://livejs.com/) to have pages auto-reload when web developing.
+- [LiveJS](http://livejs.com/) to have pages auto-reload when web developing.
+
+# Jekyll
+
+```bash
+jekyll serve --watch
+```
